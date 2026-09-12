@@ -1,0 +1,13 @@
+#!/bin/sh
+
+USER=gitea
+
+#echo "$0 $@ $SSH_ORIGINAL_COMMAND" >> /tmp/log
+echo "# Forward to docker gitea" > /dev/stderr
+#env >> /tmp/log
+
+KEY_ID=$(echo "$@" | grep -oE 'key-[0-9]+' || echo "key-2")
+ssh -p 2222 -o StrictHostKeyChecking=no $USER@127.0.0.1 \
+	"SSH_ORIGINAL_COMMAND=\"$SSH_ORIGINAL_COMMAND\" $0 $@"
+
+#"$SSH_ORIGINAL_COMMAND"

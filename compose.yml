@@ -1,0 +1,35 @@
+services:
+   caddy:
+     image: caddy:alpine
+     ports:
+       - 80:80
+       - 443:443
+       - 443:443/udp
+     volumes:
+       - ./caddy:/etc/caddy
+     environment:
+       - URL=${URL:-localhost}
+       - URI=${URI:-git}
+       - EMAIL=${EMAIL:-email@example.com}
+       - ACME_URL=${ACME_URL:-https://acme-v02.api.letsencrypt.org/directory} 
+       - ACME_CA_ROOT=${ACME_CA_ROOT:-/etc/ssl/cert.pem}
+
+   gitea:
+     image: docker.gitea.com/gitea
+     ports:
+       - "127.0.0.1:2222:22"
+     volumes:
+       - ./gitea:/data
+       - /etc/timezone:/etc/timezone:ro
+       - /etc/localtime:/etc/localtime:ro
+     environment:
+       - USER_UID=1004
+       - USER_GID=1005
+       - USER=${GITEAUSER:-gitea}
+       - GITEA__server__ROOT_URL="https://${URL}${URI}"
+       - GITEA__RUN_USER=${GITEAUSER:-gitea}
+#       - GITEA__service__DISABLE_REGISTRATION=true
+#       - GITEA__service__ENABLE_PASSWORD_SIGNIN_FORM=false
+#       - GITEA__openid__ENABLE_OPENID_SIGNUP=false
+#       - GITEA__openid__ENABLE_OPENID_SIGNIN=false
+#       - GITEA__service__ENABLE_PASSKEY_AUTHENTICATION=false

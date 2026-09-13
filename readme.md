@@ -56,8 +56,8 @@ graph LR
 
 **Explanation**:
 - User connects via SSH to the host with their key
-- The `ForceCommand` in `authorized_keys` executes `gitea.host`
-- This script runs `docker exec` into the Gitea container to serve the Git command
+- The `ForceCommand` in `authorized_keys` executes `/usr/local/bin/gitea` (auto generate via gitea webUI)
+- This script runs command via ssh git@localhost ie: the Gitea container to serve the Git command.
 
 ---
 

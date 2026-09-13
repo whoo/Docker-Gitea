@@ -26,6 +26,6 @@ A[client]--(key gitea key conf)--> B[ssh] --(via localkey)--> C[docker]
 * generate a key for gitea and add public in authorized_key
 
 
-## installatoin
+## Installation
 
 Go on $URL/$URI check parameter and next.

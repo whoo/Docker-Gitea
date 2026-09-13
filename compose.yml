@@ -7,6 +7,7 @@ services:
        - 443:443/udp
      volumes:
        - ./caddy:/etc/caddy
+       - ./caddy/data:/data
      environment:
        - URL=${URL:-localhost}
        - URI=${URI:-git}
